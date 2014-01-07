@@ -34,6 +34,7 @@ echo "$*" |\
 
 TARGETLANG="${2:-ja}"
 BILINGUAL_EN="${BILINGUAL_EN:-0}"
+SLEEP="${SLEEP:-0}"
 
 ## action
 
@@ -60,16 +61,16 @@ if echo "${_i}" | grep -lq '^msgid' ; then
    _transline="`_strippo ${_transline}${_i}`"
 elif echo "${_i}" | grep -lq '^msgstr' ; then
   _src=0
-  # TRANSLATE '_transline'
   _processedline="`trs {en=${TARGETLANG}} "${_transline}"`"
-  #echo "msgstr \"${_processedline}\""
-  #echo "\"${_transline}\""
   if [ ! "${BILINGUAL_EN}" == "0" ] ; then
     echo "msgstr \"\""
     echo "\"${_processedline}\"foo.nl"
     echo "\"${_transline}\""
   else
     echo "msgstr \"${_processedline}\""
+  fi
+  if [ ! "${SLEEP}" == "0" ] ; then
+    try sleep "${SLEEP}"
   fi
 elif echo "${_i}" | grep -lq '^"' ; then
   if [ ${_src} = 1 ] ; then
