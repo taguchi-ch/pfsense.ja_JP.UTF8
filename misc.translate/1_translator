@@ -5,7 +5,7 @@
 
 # REQUISITES:
 # https://github.com/soimort/google-translate-cli
-# (installed to your PATH)
+#  (installed to your PATH)
 # that gawk program requires gawk(1), FreeBSD ports version will suffice.
 
 yell() { echo "$0: $*" >&2; }
