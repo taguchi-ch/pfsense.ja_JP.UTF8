@@ -19,20 +19,26 @@ echo "$*"
 }
 
 _strippo() {
-# strips msgid "", and leading/trailing "
+# strips .po markup, and replaces variable bits for machine translation clarity.
+# extremely inefficient, but much simpler to manage.
 echo "$*" |\
   try sed 's/^msgid "//;s/^msgstr "//;s/"$//;' |\
-  try sed 's#<br/>#foo.br#g'
+  try sed 's#<br/>#foo.br#g;s/%s/foo.s/g;' |\
+  try sed 's/%1\$s/foo.1/g;s/%2\$s/foo.2/g;s/%3\$s/foo.3/g' |\
+  try sed 's/()/.foo.fu/g' |\
+  try sed 's/\[/((/g;s/\]/))/g' |\
+  try sed 's/\!/\\!/g;s/\$/\\$/g;s/\`/\\`/g;'
 }
 
 ## vars
 
-TARGETLANG="${2:-jp}"
+TARGETLANG="${2:-ja}"
+BILINGUAL_EN="${BILINGUAL_EN:-0}"
 
 ## action
 
 # print .po "header", (email style)
-try sed '/^$/q' "$1"
+try sed '/^$/q' "$1" | awk '{ gsub(/\\n/,"foo.nl");print }'
 
 ####################
 # line by line, everything after the "header", (email style)
@@ -55,7 +61,16 @@ if echo "${_i}" | grep -lq '^msgid' ; then
 elif echo "${_i}" | grep -lq '^msgstr' ; then
   _src=0
   # TRANSLATE '_transline'
-  echo "msgstr \"${_transline}\""
+  _processedline="`trs {en=${TARGETLANG}} "${_transline}"`"
+  #echo "msgstr \"${_processedline}\""
+  #echo "\"${_transline}\""
+  if [ ! "${BILINGUAL_EN}" == "0" ] ; then
+    echo "msgstr \"\""
+    echo "\"${_processedline}\"foo.nl"
+    echo "\"${_transline}\""
+  else
+    echo "msgstr \"${_processedline}\""
+  fi
 elif echo "${_i}" | grep -lq '^"' ; then
   if [ ${_src} = 1 ] ; then
     echo "${_i}"
