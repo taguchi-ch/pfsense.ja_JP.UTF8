@@ -12,6 +12,19 @@ _translate() {
 echo "${*}"
 }
 
+_printprocessed() {
+echo "$*"
+ # |\
+ # try awk '{ gsub("foo.nl",/\\n/);print }'
+}
+
+_strippo() {
+# strips msgid "", and leading/trailing "
+echo "$*" |\
+  try sed 's/^msgid "//;s/^msgstr "//;s/"$//;' |\
+  try sed 's#<br/>#foo.br#g'
+}
+
 ## vars
 
 TARGETLANG="${2:-jp}"
@@ -23,7 +36,7 @@ try sed '/^$/q' "$1"
 
 ####################
 # line by line, everything after the "header", (email style)
-sed '1,/^$/d' "$1" |\
+try sed '1,/^$/d' "$1" | try awk '{ gsub(/\\n/,"foo.nl");print }' |\
 while read line ; do
 
 #while line is still quoted, strip leading/trailing whitespace,
@@ -38,7 +51,7 @@ if echo "${_i}" | grep -lq '^msgid' ; then
    _src=1
     echo "${_i}"
    _transline=""
-   _transline="${_transline}${_i}"
+   _transline="`_strippo ${_transline}${_i}`"
 elif echo "${_i}" | grep -lq '^msgstr' ; then
   _src=0
   # TRANSLATE '_transline'
@@ -46,7 +59,8 @@ elif echo "${_i}" | grep -lq '^msgstr' ; then
 elif echo "${_i}" | grep -lq '^"' ; then
   if [ ${_src} = 1 ] ; then
     echo "${_i}"
-    _transline="${_transline}${_i}"
+    _transline="`_strippo ${_transline}${_i}`"
+  #  _transline="${_transline}${_i}"
   fi
 fi
 
@@ -59,7 +73,7 @@ fi
 # trs {en=ja} "$line" | sed 's/((/\[/g;s/))/\]/g'
 # echo '--'
 # sleep .25
-# done
+# done 
 
 
 #done < "$1"
