@@ -3,6 +3,11 @@
 # machine translation for pfSense gettext .po files using google translate
 # compared to awk(1), this is REALLY slow in shell, but way easier to work with.
 
+# REQUISITES:
+# https://github.com/soimort/google-translate-cli
+# (installed to your PATH)
+# that gawk program requires gawk(1), FreeBSD ports version will suffice.
+
 yell() { echo "$0: $*" >&2; }
 die() { yell "$*"; exit 111; }
 try() { "$@" || die "cannot $*"; }
@@ -27,8 +32,8 @@ echo "$*" |\
   try sed 's/%1\$s/foo.1/g;s/%2\$s/foo.2/g;s/%3\$s/foo.3/g' |\
   try sed 's/()/.foo.fu/g' |\
   try sed 's/\[/((/g;s/\]/))/g' |\
-  try sed 's/\!/\\!/g;s/\$/\\$/g;s/\`/\\`/g;' |\
-  try sed 's/OK/okay/g'
+  try sed 's/\!/\\!/g;s/\$/\\$/g;s/\`/\\`/g;'
+#  try sed 's/OK/okay/g'
 }
 
 ## vars
