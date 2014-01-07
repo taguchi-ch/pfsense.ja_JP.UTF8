@@ -27,7 +27,8 @@ echo "$*" |\
   try sed 's/%1\$s/foo.1/g;s/%2\$s/foo.2/g;s/%3\$s/foo.3/g' |\
   try sed 's/()/.foo.fu/g' |\
   try sed 's/\[/((/g;s/\]/))/g' |\
-  try sed 's/\!/\\!/g;s/\$/\\$/g;s/\`/\\`/g;'
+  try sed 's/\!/\\!/g;s/\$/\\$/g;s/\`/\\`/g;' |\
+  try sed 's/OK/okay/g'
 }
 
 ## vars
