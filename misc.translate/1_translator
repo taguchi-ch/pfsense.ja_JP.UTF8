@@ -36,11 +36,13 @@ echo "$*" |\
 #  try sed 's/OK/okay/g'
 }
 
+
 ## vars
 
 TARGETLANG="${2:-ja}"
 BILINGUAL_EN="${BILINGUAL_EN:-0}"
 SLEEP="${SLEEP:-0}"
+
 
 ## action
 
@@ -75,57 +77,29 @@ elif echo "${_i}" | grep -lq '^"' ; then
     echo "${_i}"
     _transline="`_strippo ${_transline}${_i}`"
   elif [ ${_startclear} = 0 ] ; then
-     #echo "EMPTY msgstr-post" #DEBUG
     _existingtrans="`_strippo ${_existingtrans}${_i}`"
-     #echo "${_existingtrans}"
   fi
 elif echo "${_i}" | grep -lqv '.' ; then
   # line is empty, check state for post-processing
   # IF EMPTY LINE, AND STATE IS CLEAR TO TRANSLATE, DO IT HERE
-
-if [ ! "${_existingtrans}" == "" ] ; then
-  echo "msgstr \"${_existingtrans}\""
-else
-  echo "# TRANSLATE HERE"
-  _processedline="`trs {en=${TARGETLANG}} "${_transline}"`"
-  if [ ! "${BILINGUAL_EN}" == "0" ] ; then
-    echo "msgstr \"\""
-    echo "\"${_processedline}\"foo.nl"
-    echo "\"${_transline}\""
+  if [ ! "${_existingtrans}" == "" ] ; then
+    echo "msgstr \"${_existingtrans}\""
   else
-    echo "msgstr \"${_processedline}\""
+    _processedline="`trs {en=${TARGETLANG}} "${_transline}"`"
+    if [ ! "${BILINGUAL_EN}" == "0" ] ; then
+      echo "msgstr \"\""
+      echo "\"${_processedline}\"foo.nl"
+      echo "\"${_transline}\""
+    else
+      echo "msgstr \"${_processedline}\""
+    fi
+    if [ ! "${SLEEP}" == "0" ] ; then
+      try sleep "${SLEEP}"
+    fi
   fi
-  if [ ! "${SLEEP}" == "0" ] ; then
-    try sleep "${SLEEP}"
-  fi
-fi
-
   # print the empty line as-is (captures other whitespace, why not)
   echo "${_i}"
 fi
-
-
-#if [ ! "${_existingtrans}" == "" ] && [ $_startclear = 0 ] ; then
-#  echo "msgstr \"${_existingtrans}\""
-#fi
-#else
-#   translate _processedline
-#   do the print dance
-# fi
-#
-##
-#  _processedline="`trs {en=${TARGETLANG}} "${_transline}"`"
-#  if [ ! "${BILINGUAL_EN}" == "0" ] ; then
-#    echo "msgstr \"\""
-#    echo "\"${_processedline}\"foo.nl"
-#    echo "\"${_transline}\""
-#  else
-#    echo "msgstr \"${_processedline}\""
-#  fi
-#  if [ ! "${SLEEP}" == "0" ] ; then
-#    try sleep "${SLEEP}"
-#  fi
-##
 
 done
 ###########
