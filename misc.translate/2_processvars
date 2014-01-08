@@ -4,5 +4,13 @@ yell() { echo "$0: $*" >&2; }
 die() { yell "$*"; exit 111; }
 try() { "$@" || die "cannot $*"; }
 
+while read line ; do
+
+echo $line |\
+  try sed 's/foo.s/%s/g' |\
+  try sed 's/foo.nl/\\n/g' 
+           
+
+done < /dev/stdin
 
 true
