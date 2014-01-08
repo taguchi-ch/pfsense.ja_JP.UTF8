@@ -55,18 +55,38 @@ while read line ; do
 #while line is still quoted, strip leading/trailing whitespace,
 _i="`echo ${line} | try sed 's/^[ \t]*//'`"
 
-# if line is empty, print it
-echo "${_i}" | grep -v '.'
-# if line is comment, '^#', print it
-echo "${_i}" | grep '^#'
-
-if echo "${_i}" | grep -lq '^msgid' ; then
+if echo "${_i}" | grep -lq '^#:' ; then
+  _startclear=1
+  _strippo "${_i}"
+elif echo "${_i}" | grep -lq '^#' ; then
+  _strippo "${_i}" 
+elif echo "${_i}" | grep -lq '^msgid' ; then
    _src=1
     echo "${_i}"
    _transline=""
    _transline="`_strippo ${_transline}${_i}`"
 elif echo "${_i}" | grep -lq '^msgstr' ; then
   _src=0
+  _startclear=0
+  _existingtrans=""                                   # clear it,
+  _existingtrans="`_strippo ${_existingtrans}${_i}`"  # start it.
+elif echo "${_i}" | grep -lq '^"' ; then
+  if [ ${_src} = 1 ] ; then
+    echo "${_i}"
+    _transline="`_strippo ${_transline}${_i}`"
+  elif [ ${_startclear} = 0 ] ; then
+     #echo "EMPTY msgstr-post" #DEBUG
+    _existingtrans="`_strippo ${_existingtrans}${_i}`"
+     #echo "${_existingtrans}"
+  fi
+elif echo "${_i}" | grep -lqv '.' ; then
+  # line is empty, check state for post-processing
+  # IF EMPTY LINE, AND STATE IS CLEAR TO TRANSLATE, DO IT HERE
+
+if [ ! "${_existingtrans}" == "" ] ; then
+  echo "msgstr \"${_existingtrans}\""
+else
+  echo "# TRANSLATE HERE"
   _processedline="`trs {en=${TARGETLANG}} "${_transline}"`"
   if [ ! "${BILINGUAL_EN}" == "0" ] ; then
     echo "msgstr \"\""
@@ -78,27 +98,35 @@ elif echo "${_i}" | grep -lq '^msgstr' ; then
   if [ ! "${SLEEP}" == "0" ] ; then
     try sleep "${SLEEP}"
   fi
-elif echo "${_i}" | grep -lq '^"' ; then
-  if [ ${_src} = 1 ] ; then
-    echo "${_i}"
-    _transline="`_strippo ${_transline}${_i}`"
-  #  _transline="${_transline}${_i}"
-  fi
 fi
 
-# awk ' /msgid/ {flag=1;next} /msgstr/{flag=0} flag { print }' ./usr/local/share/locale/ja_JP.UT
-# F8/LC_MESSAGES/pfSense.machine.po |\
-# sed 's/^"//;s/"$//;s/\[/((/g;s/\]/))/g;s/%s/foo.s/g' |\
-# sed 's/\!/\\\!/g;s/\$/\\\$/g;s/\`/\\\`/g;s/\\/\\\\/g;' |\
-# while read line ; do
-# echo "$line" | sed 's/((/\[/g;s/))/\]/g'
-# trs {en=ja} "$line" | sed 's/((/\[/g;s/))/\]/g'
-# echo '--'
-# sleep .25
-# done 
+  # print the empty line as-is (captures other whitespace, why not)
+  echo "${_i}"
+fi
 
 
-#done < "$1"
+#if [ ! "${_existingtrans}" == "" ] && [ $_startclear = 0 ] ; then
+#  echo "msgstr \"${_existingtrans}\""
+#fi
+#else
+#   translate _processedline
+#   do the print dance
+# fi
+#
+##
+#  _processedline="`trs {en=${TARGETLANG}} "${_transline}"`"
+#  if [ ! "${BILINGUAL_EN}" == "0" ] ; then
+#    echo "msgstr \"\""
+#    echo "\"${_processedline}\"foo.nl"
+#    echo "\"${_transline}\""
+#  else
+#    echo "msgstr \"${_processedline}\""
+#  fi
+#  if [ ! "${SLEEP}" == "0" ] ; then
+#    try sleep "${SLEEP}"
+#  fi
+##
+
 done
 ###########
 
