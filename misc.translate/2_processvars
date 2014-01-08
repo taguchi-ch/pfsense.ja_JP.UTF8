@@ -7,10 +7,22 @@ try() { "$@" || die "cannot $*"; }
 while read line ; do
 
 echo $line |\
+  try sed 's/foo.nl/\\n/g' |\
+  try sed 's#foo.br#<br/>#g' |\
   try sed 's/foo.s/%s/g' |\
-  try sed 's/foo.nl/\\n/g' 
-           
+  try sed 's/foo.1/%1\$s/g' |\
+  try sed 's/foo.2/%2\$s/g' |\
+  try sed 's/foo.3/%3\$s/g' |\
+  try sed 's/foo.fu/()/g'
 
-done < /dev/stdin
+# "foo.nl",/\\n/
+# s#<br/>#foo.br#g
+# s/%s/foo.s/g
+# s/%1\$s/foo.1/g
+# s/%2\$s/foo.2/g
+# s/%3\$s/foo.3/g
+# s/()/.foo.fu/g
+
+done < "${1:-/dev/stdin}"
 
 true

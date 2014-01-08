@@ -36,6 +36,20 @@ echo "$*" |\
 #  try sed 's/OK/okay/g'
 }
 
+_machinetrans() {
+# takes clean string, returns translated string
+# if translate fails or times out, move on- returning a string that's
+# easy for translators to find.
+  ( trs {en=${TARGETLANG}} "${*}" ) & pid="${!}"
+  ( sleep 5 && kill -HUP "${pid}" ) 2>/dev/null & watcher="${!}"
+  if wait $pid 2>/dev/null; then
+    #echo "Slow task finished"
+    pkill -HUP -P $watcher
+    wait $watcher
+  else
+    echo "TODO: machine translation failed"
+  fi
+}
 
 ## vars
 
@@ -85,7 +99,7 @@ elif echo "${_i}" | grep -lqv '.' ; then
   if [ ! "${_existingtrans}" == "" ] ; then
     echo "msgstr \"${_existingtrans}\""
   else
-    _processedline="`trs {en=${TARGETLANG}} "${_transline}"`"
+    _processedline="`_machinetrans "${_transline}"`"
     if [ ! "${BILINGUAL_EN}" == "0" ] ; then
       echo "msgstr \"\""
       echo "\"${_processedline}\"foo.nl"
