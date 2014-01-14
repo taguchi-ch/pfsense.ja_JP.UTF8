@@ -6,11 +6,11 @@ This is a temporary fork, specifically to work on translating pfSense to Japanes
 STATUS: A rough machine translation has been made, in an attempt to speed up this translation. Now it's time for human proofreader's to correct the mistakes!
 
 There is currently one .po locale file to edit,
-<pfsense-repo>/usr/local/share/locale/ja_JP.UTF8/LC_MESSAGES/pfSense.po
+<pfsense-repo>./usr/local/share/locale/ja/LC_MESSAGES/pfSense.po
 
 For reference, this file follows the conventions set in the Portuguese (Brazil) and English translations,
-<pfsense-repo>/usr/local/share/locale/pt_BR.ISO8859-1/LC_MESSAGES/pfSense.po
-<pfsense-repo>/usr/local/share/locale/en/LC_MESSAGES/pfSense.pot
+<pfsense-repo>./usr/local/share/locale/pt_BR.ISO8859-1/LC_MESSAGES/pfSense.po
+<pfsense-repo>./usr/local/share/locale/en/LC_MESSAGES/pfSense.pot
 
 If you are Japanese/English bilingual, feel free to ask for repo access if you would like to help with this translation.
 
