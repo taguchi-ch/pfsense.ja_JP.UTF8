@@ -36,6 +36,7 @@
 
 require("guiconfig.inc");
 require_once("openvpn.inc");
+require_once("pfsense-utils.inc");
 
 $pgtitle = array(gettext("OpenVPN"), gettext("Client Specific Override"));
 $shortcut_section = "openvpn";
@@ -356,7 +357,7 @@ function netbios_change() {
 					<tr> 
 						<td width="22%" valign="top" class="vncellreq"><?=gettext("Common name"); ?></td>
 						<td width="78%" class="vtable"> 
-							<input name="common_name" type="text" class="formfld unknown" size="30" value="<?=htmlspecialchars($pconfig['common_name']);?>">
+							<input name="common_name" type="text" class="formfld unknown" size="30" value="<?=xhtmlspecialchars($pconfig['common_name']);?>">
 							<br />
 							<?=gettext("Enter the client's X.509 common name here"); ?>.
 						</td>
@@ -364,7 +365,7 @@ function netbios_change() {
 					<tr> 
 						<td width="22%" valign="top" class="vncell"><?=gettext("Description"); ?></td>
 						<td width="78%" class="vtable"> 
-							<input name="description" type="text" class="formfld unknown" size="30" value="<?=htmlspecialchars($pconfig['description']);?>">
+							<input name="description" type="text" class="formfld unknown" size="30" value="<?=xhtmlspecialchars($pconfig['description']);?>">
 							<br />
 							<?=gettext("You may enter a description here for your reference (not parsed)"); ?>.
 						</td>
@@ -399,7 +400,7 @@ function netbios_change() {
 					<tr>
 						<td width="22%" valign="top" class="vncell"><?=gettext("Tunnel Network"); ?></td>
 						<td width="78%" class="vtable">
-							<input name="tunnel_network" type="text" class="formfld unknown" size="20" value="<?=htmlspecialchars($pconfig['tunnel_network']);?>">
+							<input name="tunnel_network" type="text" class="formfld unknown" size="20" value="<?=xhtmlspecialchars($pconfig['tunnel_network']);?>">
 							<br />
 							<?=gettext("This is the virtual network used for private " .
 							"communications between this client and the " .
@@ -413,7 +414,7 @@ function netbios_change() {
 					<tr id="local_optsv4">
 						<td width="22%" valign="top" class="vncell"><?=gettext("IPv4 Local Network/s"); ?></td>
 						<td width="78%" class="vtable">
-							<input name="local_network" type="text" class="formfld unknown" size="40" value="<?=htmlspecialchars($pconfig['local_network']);?>">
+							<input name="local_network" type="text" class="formfld unknown" size="40" value="<?=xhtmlspecialchars($pconfig['local_network']);?>">
 							<br />
 							<?=gettext("These are the IPv4 networks that will be accessible " .
 							"from this particular client. Expressed as a comma-separated list of one or more CIDR ranges."); ?>
@@ -424,7 +425,7 @@ function netbios_change() {
 					<tr id="local_optsv6">
 						<td width="22%" valign="top" class="vncell"><?=gettext("IPv6 Local Network/s"); ?></td>
 						<td width="78%" class="vtable">
-							<input name="local_networkv6" type="text" class="formfld unknown" size="40" value="<?=htmlspecialchars($pconfig['local_networkv6']);?>">
+							<input name="local_networkv6" type="text" class="formfld unknown" size="40" value="<?=xhtmlspecialchars($pconfig['local_networkv6']);?>">
 							<br />
 							<?=gettext("These are the IPv6 networks that will be accessible " .
 							"from this particular client. Expressed as a comma-separated list of one or more IP/PREFIX networks."); ?>
@@ -435,7 +436,7 @@ function netbios_change() {
 					<tr id="remote_optsv4">
 						<td width="22%" valign="top" class="vncell"><?=gettext("IPv4 Remote Network/s"); ?></td>
 						<td width="78%" class="vtable">
-							<input name="remote_network" type="text" class="formfld unknown" size="40" value="<?=htmlspecialchars($pconfig['remote_network']);?>">
+							<input name="remote_network" type="text" class="formfld unknown" size="40" value="<?=xhtmlspecialchars($pconfig['remote_network']);?>">
 							<br />
 							<?=gettext("These are the IPv4 networks that will be routed " .
 							"to this client specifically using iroute, so that a site-to-site " .
@@ -450,7 +451,7 @@ function netbios_change() {
 					<tr id="remote_optsv6">
 						<td width="22%" valign="top" class="vncell"><?=gettext("IPv6 Remote Network/s"); ?></td>
 						<td width="78%" class="vtable">
-							<input name="remote_networkv6" type="text" class="formfld unknown" size="40" value="<?=htmlspecialchars($pconfig['remote_networkv6']);?>">
+							<input name="remote_networkv6" type="text" class="formfld unknown" size="40" value="<?=xhtmlspecialchars($pconfig['remote_networkv6']);?>">
 							<br />
 							<?=gettext("These are the IPv6 networks that will be routed " .
 							"to this client specifically using iroute, so that a site-to-site " .
@@ -523,7 +524,7 @@ function netbios_change() {
 							<table border="0" cellpadding="2" cellspacing="0" id="dns_domain_data">
 								<tr>
 									<td>
-										<input name="dns_domain" type="text" class="formfld unknown" id="dns_domain" size="30" value="<?=htmlspecialchars($pconfig['dns_domain']);?>">
+										<input name="dns_domain" type="text" class="formfld unknown" id="dns_domain" size="30" value="<?=xhtmlspecialchars($pconfig['dns_domain']);?>">
 									</td>
 								</tr>
 							</table>
@@ -551,7 +552,7 @@ function netbios_change() {
 										<span class="vexpl">
 											<?=gettext("Server"); ?> #1:&nbsp;
 										</span>
-										<input name="dns_server1" type="text" class="formfld unknown" id="dns_server1" size="20" value="<?=htmlspecialchars($pconfig['dns_server1']);?>">
+										<input name="dns_server1" type="text" class="formfld unknown" id="dns_server1" size="20" value="<?=xhtmlspecialchars($pconfig['dns_server1']);?>">
 									</td>
 								</tr>
 								<tr>
@@ -559,7 +560,7 @@ function netbios_change() {
 										<span class="vexpl">
 											<?=gettext("Server"); ?> #2:&nbsp;
 										</span>
-										<input name="dns_server2" type="text" class="formfld unknown" id="dns_server2" size="20" value="<?=htmlspecialchars($pconfig['dns_server2']);?>">
+										<input name="dns_server2" type="text" class="formfld unknown" id="dns_server2" size="20" value="<?=xhtmlspecialchars($pconfig['dns_server2']);?>">
 									</td>
 								</tr>
 								<tr>
@@ -567,7 +568,7 @@ function netbios_change() {
 										<span class="vexpl">
 											<?=gettext("Server"); ?> #3:&nbsp;
 										</span>
-										<input name="dns_server3" type="text" class="formfld unknown" id="dns_server3" size="20" value="<?=htmlspecialchars($pconfig['dns_server3']);?>">
+										<input name="dns_server3" type="text" class="formfld unknown" id="dns_server3" size="20" value="<?=xhtmlspecialchars($pconfig['dns_server3']);?>">
 									</td>
 								</tr>
 								<tr>
@@ -575,7 +576,7 @@ function netbios_change() {
 										<span class="vexpl">
 											<?=gettext("Server"); ?> #4:&nbsp;
 										</span>
-										<input name="dns_server4" type="text" class="formfld unknown" id="dns_server4" size="20" value="<?=htmlspecialchars($pconfig['dns_server4']);?>">
+										<input name="dns_server4" type="text" class="formfld unknown" id="dns_server4" size="20" value="<?=xhtmlspecialchars($pconfig['dns_server4']);?>">
 									</td>
 								</tr>
 							</table>
@@ -665,7 +666,7 @@ function netbios_change() {
 										<span class="vexpl">
 											Scope ID:&nbsp;
 										</span>
-										<input name="netbios_scope" type="text" class="formfld unknown" id="netbios_scope" size="30" value="<?=htmlspecialchars($pconfig['netbios_scope']);?>">
+										<input name="netbios_scope" type="text" class="formfld unknown" id="netbios_scope" size="30" value="<?=xhtmlspecialchars($pconfig['netbios_scope']);?>">
 										<br />
 										<?=gettext("A NetBIOS Scope	ID provides an extended naming " .
 										"service for	NetBIOS over TCP/IP. The NetBIOS " .
@@ -733,7 +734,7 @@ function netbios_change() {
 							<input name="save" type="submit" class="formbtn" value="<?=gettext("Save"); ?>"> 
 							<input name="act" type="hidden" value="<?=$act;?>">
 							<?php if (isset($id) && $a_csc[$id]): ?>
-							<input name="id" type="hidden" value="<?=htmlspecialchars($id);?>">
+							<input name="id" type="hidden" value="<?=xhtmlspecialchars($id);?>">
 							<?php endif; ?>
 						</td>
 					</tr>
@@ -761,10 +762,10 @@ function netbios_change() {
 						<?=$disabled;?>
 					</td>
 					<td class="listr">
-						<?=htmlspecialchars($csc['common_name']);?>
+						<?=xhtmlspecialchars($csc['common_name']);?>
 					</td>
 					<td class="listbg">
-						<?=htmlspecialchars($csc['description']);?>
+						<?=xhtmlspecialchars($csc['description']);?>
 					</td>
 					<td valign="middle" nowrap class="list">
 						<a href="vpn_openvpn_csc.php?act=edit&id=<?=$i;?>">

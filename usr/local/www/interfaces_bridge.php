@@ -120,7 +120,7 @@ include("head.inc");
 					foreach ($a_bridges as $bridge): ?>
                 <tr  ondblclick="document.location='interfaces_bridge_edit.php?id=<?=$i;?>'">
                   <td class="listlr">
-					<?=htmlspecialchars(strtoupper($bridge['bridgeif']));?>
+					<?=xhtmlspecialchars(strtoupper($bridge['bridgeif']));?>
                   </td>
                   <td class="listr">
 					<?php $members = explode(',', $bridge['members']);
@@ -136,7 +136,7 @@ include("head.inc");
 					?>
                   </td>
                   <td class="listbg">
-                    <?=htmlspecialchars($bridge['descr']);?>&nbsp;
+                    <?=xhtmlspecialchars($bridge['descr']);?>&nbsp;
                   </td>
                   <td valign="middle" class="list nowrap"> <a href="interfaces_bridge_edit.php?id=<?=$i;?>"><img src="./themes/<?= $g['theme']; ?>/images/icons/icon_e.gif" width="17" height="17" border="0" alt="edit" /></a>
                      &nbsp;<a href="interfaces_bridge.php?act=del&amp;id=<?=$i;?>" onclick="return confirm('<?=gettext("Do you really want to delete this bridge?"); ?>')"><img src="./themes/<?= $g['theme']; ?>/images/icons/icon_x.gif" width="17" height="17" border="0" alt="delete" /></a></td>

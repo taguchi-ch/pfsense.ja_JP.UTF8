@@ -35,6 +35,7 @@ require_once("functions.inc");
 require_once("guiconfig.inc");
 require_once('notices.inc');
 include_once("includes/functions.inc.php");
+require_once("pfsense-utils.inc");
 
 if($_REQUEST['getupdatestatus']) {
 	if(isset($config['system']['firmware']['disablecheck'])) {
@@ -129,9 +130,9 @@ $curcfg = $config['system']['firmware'];
 		<tr>
 			<td width="25%" class="vncellt"><?=gettext("Platform");?></td>
 			<td width="75%" class="listr">
-				<?=htmlspecialchars($g['platform']);?>
+				<?=xhtmlspecialchars($g['platform']);?>
 				<?php if (($g['platform'] == "nanobsd") && (file_exists("/etc/nanosize.txt"))) {
-					echo " (" . htmlspecialchars(trim(file_get_contents("/etc/nanosize.txt"))) . ")";
+					echo " (" . xhtmlspecialchars(trim(file_get_contents("/etc/nanosize.txt"))) . ")";
 				} ?>
 			</td>
 		</tr>
@@ -147,10 +148,10 @@ $curcfg = $config['system']['firmware'];
 		<tr>
 			<td width="25%" class="vncellt"><?=gettext("NanoBSD Boot Slice");?></td>
 			<td width="75%" class="listr">
-				<?=htmlspecialchars(nanobsd_friendly_slice_name($BOOT_DEVICE));?> / <?=htmlspecialchars($BOOTFLASH);?> <?php echo $rw; ?>
+				<?=xhtmlspecialchars(nanobsd_friendly_slice_name($BOOT_DEVICE));?> / <?=xhtmlspecialchars($BOOTFLASH);?> <?php echo $rw; ?>
 				<?php if ($BOOTFLASH != $ACTIVE_SLICE): ?>
 				<br /><br />Next Boot:<br />
-				<?=htmlspecialchars(nanobsd_friendly_slice_name($GLABEL_SLICE));?> / <?=htmlspecialchars($ACTIVE_SLICE);?>
+				<?=xhtmlspecialchars(nanobsd_friendly_slice_name($GLABEL_SLICE));?> / <?=xhtmlspecialchars($ACTIVE_SLICE);?>
 				<?php endif; ?>
 			</td>
 		</tr>
@@ -162,25 +163,25 @@ $curcfg = $config['system']['firmware'];
 				$cpumodel = "";
 				exec("/sbin/sysctl -n hw.model", $cpumodel);
 				$cpumodel = implode(" ", $cpumodel);
-				echo (htmlspecialchars($cpumodel));
+				echo (xhtmlspecialchars($cpumodel));
 			?>
 			<div id="cpufreq"><?= get_cpufreq(); ?></div>
 		<?php	$cpucount = get_cpu_count();
 			if ($cpucount > 1): ?>
 			<div id="cpucount">
-				<?= htmlspecialchars($cpucount) ?> CPUs: <?= htmlspecialchars(get_cpu_count(true)); ?></div>
+				<?= xhtmlspecialchars($cpucount) ?> CPUs: <?= xhtmlspecialchars(get_cpu_count(true)); ?></div>
 		<?php	endif; ?>
 			</td>
 		</tr>
 		<?php if ($hwcrypto): ?>
 		<tr>
 			<td width="25%" class="vncellt"><?=gettext("Hardware crypto");?></td>
-			<td width="75%" class="listr"><?=htmlspecialchars($hwcrypto);?></td>
+			<td width="75%" class="listr"><?=xhtmlspecialchars($hwcrypto);?></td>
 		</tr>
 		<?php endif; ?>
 		<tr>
 			<td width="25%" class="vncellt"><?=gettext("Uptime");?></td>
-			<td width="75%" class="listr" id="uptime"><?= htmlspecialchars(get_uptime()); ?></td>
+			<td width="75%" class="listr" id="uptime"><?= xhtmlspecialchars(get_uptime()); ?></td>
 		</tr>
         <tr>
             <td width="25%" class="vncellt"><?=gettext("Current date/time");?></td>
@@ -202,7 +203,7 @@ $curcfg = $config['system']['firmware'];
 		<?php if ($config['revision']): ?>
 		<tr>
 			<td width="25%" class="vncellt"><?=gettext("Last config change");?></td>
-			<td width="75%" class="listr"><?= htmlspecialchars(date("D M j G:i:s T Y", intval($config['revision']['time'])));?></td>
+			<td width="75%" class="listr"><?= xhtmlspecialchars(date("D M j G:i:s T Y", intval($config['revision']['time'])));?></td>
 		</tr>
 		<?php endif; ?>
 		<tr>
@@ -212,7 +213,7 @@ $curcfg = $config['system']['firmware'];
 					$pfstateusage = get_pfstate(true);
 				?>
 				<div id="statePB"></div>
-				<span id="pfstateusagemeter"><?= $pfstateusage.'%'; ?></span> (<span id="pfstate"><?= htmlspecialchars($pfstatetext); ?></span>)
+				<span id="pfstateusagemeter"><?= $pfstateusage.'%'; ?></span> (<span id="pfstate"><?= xhtmlspecialchars($pfstatetext); ?></span>)
 		    	<br />
 		    	<a href="diag_dump_states.php"><?=gettext("Show states");?></a>
 			</td>

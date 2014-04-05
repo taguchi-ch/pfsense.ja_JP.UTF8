@@ -42,6 +42,8 @@
 		pfSense_MODULE:	auth
 */
 
+require_once("pfsense-utils.inc");
+
 /*
  * NOTE : Portions of the mschapv2 support was based on the BSD licensed CHAP.php
  * file courtesy of Michael Retterklieber.
@@ -178,7 +180,7 @@ if(function_exists("display_error_form") && !isset($config['system']['webgui']['
 		}
 		if($found_host == false) {
 			if(!security_checks_disabled()) {
-				display_error_form("501", "An HTTP_REFERER was detected other than what is defined in System -> Advanced (" . htmlspecialchars($_SERVER['HTTP_REFERER']) . ").  You can disable this check if needed in System -> Advanced -> Admin.");
+				display_error_form("501", "An HTTP_REFERER was detected other than what is defined in System -> Advanced (" . xhtmlspecialchars($_SERVER['HTTP_REFERER']) . ").  You can disable this check if needed in System -> Advanced -> Admin.");
 				exit;
 			}
 			$security_passed = false;

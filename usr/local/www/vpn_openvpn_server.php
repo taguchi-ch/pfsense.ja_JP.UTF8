@@ -860,7 +860,7 @@ if ($savemsg)
 											$selected = "selected";
 								?>
 									<option value="<?=$iface;?>" <?=$selected;?>>
-										<?=htmlspecialchars($ifacename);?>
+										<?=xhtmlspecialchars($ifacename);?>
 									</option>
 								<?php endforeach; ?>
 							</select> <br />
@@ -869,13 +869,13 @@ if ($savemsg)
 					<tr>
 						<td width="22%" valign="top" class="vncellreq"><?=gettext("Local port");?></td>
 						<td width="78%" class="vtable">
-							<input name="local_port" type="text" class="formfld unknown" size="5" value="<?=htmlspecialchars($pconfig['local_port']);?>"/>
+							<input name="local_port" type="text" class="formfld unknown" size="5" value="<?=xhtmlspecialchars($pconfig['local_port']);?>"/>
 						</td>
 					</tr>
 					<tr> 
 						<td width="22%" valign="top" class="vncell"><?=gettext("Description"); ?></td>
 						<td width="78%" class="vtable"> 
-							<input name="description" type="text" class="formfld unknown" size="30" value="<?=htmlspecialchars($pconfig['description']);?>">
+							<input name="description" type="text" class="formfld unknown" size="30" value="<?=xhtmlspecialchars($pconfig['description']);?>">
 							<br />
 							<?=gettext("You may enter a description here for your reference (not parsed)"); ?>.
 						</td>
@@ -920,7 +920,7 @@ if ($savemsg)
 							<table border="0" cellpadding="2" cellspacing="0" id='autotls_opts'>
 								<tr>
 									<td>
-										<textarea name="tls" cols="65" rows="7" class="formpre"><?=htmlspecialchars($pconfig['tls']);?></textarea>
+										<textarea name="tls" cols="65" rows="7" class="formpre"><?=xhtmlspecialchars($pconfig['tls']);?></textarea>
 										<br />
 										<?=gettext("Paste your shared key here"); ?>.
 									</td>
@@ -1040,7 +1040,7 @@ if ($savemsg)
 							<table border="0" cellpadding="2" cellspacing="0" id='autokey_opts'>
 								<tr>
 									<td>
-										<textarea name="shared_key" cols="65" rows="7" class="formpre"><?=htmlspecialchars($pconfig['shared_key']);?></textarea>
+										<textarea name="shared_key" cols="65" rows="7" class="formpre"><?=xhtmlspecialchars($pconfig['shared_key']);?></textarea>
 										<br />
 										<?=gettext("Paste your shared key here"); ?>.
 									</td>
@@ -1060,7 +1060,7 @@ if ($savemsg)
 										$selected = ' selected';
 								?>
 								<option value="<?=$name;?>"<?=$selected?>>
-									<?=htmlspecialchars($desc);?>
+									<?=xhtmlspecialchars($desc);?>
 								</option>
 								<?php endforeach; ?>
 							</select>
@@ -1078,7 +1078,7 @@ if ($savemsg)
 										$selected = ' selected';
 								?>
 								<option value="<?=$name;?>"<?=$selected?>>
-									<?=htmlspecialchars($desc);?>
+									<?=xhtmlspecialchars($desc);?>
 								</option>
 								<?php endforeach; ?>
 							</select>
@@ -1096,7 +1096,7 @@ if ($savemsg)
 										$selected = ' selected';
 								?>
 								<option value="<?=$name;?>"<?=$selected?>>
-									<?=htmlspecialchars($desc);?>
+									<?=xhtmlspecialchars($desc);?>
 								</option>
 								<?php endforeach; ?>
 							</select>
@@ -1154,7 +1154,7 @@ if ($savemsg)
 					<tr>
 						<td width="22%" valign="top" class="vncellreq" id="ipv4_tunnel_network"><?=gettext("IPv4 Tunnel Network"); ?></td>
 						<td width="78%" class="vtable">
-							<input name="tunnel_network" type="text" class="formfld unknown" size="20" value="<?=htmlspecialchars($pconfig['tunnel_network']);?>">
+							<input name="tunnel_network" type="text" class="formfld unknown" size="20" value="<?=xhtmlspecialchars($pconfig['tunnel_network']);?>">
 							<br />
 							<?=gettext("This is the IPv4 virtual network used for private " .
 							"communications between this server and client " .
@@ -1168,7 +1168,7 @@ if ($savemsg)
 					<tr>
 						<td width="22%" valign="top" class="vncell"><?=gettext("IPv6 Tunnel Network"); ?></td>
 						<td width="78%" class="vtable">
-							<input name="tunnel_networkv6" type="text" class="formfld unknown" size="20" value="<?=htmlspecialchars($pconfig['tunnel_networkv6']);?>">
+							<input name="tunnel_networkv6" type="text" class="formfld unknown" size="20" value="<?=xhtmlspecialchars($pconfig['tunnel_networkv6']);?>">
 							<br />
 							<?=gettext("This is the IPv6 virtual network used for private " .
 							"communications between this server and client " .
@@ -1216,7 +1216,7 @@ if ($savemsg)
 											$selected = "selected";
 								?>
 									<option value="<?=$iface;?>" <?=$selected;?>>
-										<?=htmlspecialchars($ifacename);?>
+										<?=xhtmlspecialchars($ifacename);?>
 									</option>
 								<?php endforeach; ?>
 							</select> <br />
@@ -1231,7 +1231,7 @@ if ($savemsg)
 					<tr id="serverbridge_dhcp_start">
 						<td width="22%" valign="top" class="vncell"><?=gettext("Server Bridge DHCP Start"); ?></td>
 						<td width="78%" class="vtable">
-							<input name="serverbridge_dhcp_start" type="text" class="formfld unknown" size="20" value="<?=htmlspecialchars($pconfig['serverbridge_dhcp_start']);?>">
+							<input name="serverbridge_dhcp_start" type="text" class="formfld unknown" size="20" value="<?=xhtmlspecialchars($pconfig['serverbridge_dhcp_start']);?>">
 							<br />
 							<?=gettext("When using tap mode as a multi-point server, " .
 							"you may optionally supply a DHCP range to use on the " .
@@ -1244,7 +1244,7 @@ if ($savemsg)
 					<tr id="serverbridge_dhcp_end">
 						<td width="22%" valign="top" class="vncell"><?=gettext("Server Bridge DHCP End"); ?></td>
 						<td width="78%" class="vtable">
-							<input name="serverbridge_dhcp_end" type="text" class="formfld unknown" size="20" value="<?=htmlspecialchars($pconfig['serverbridge_dhcp_end']);?>">
+							<input name="serverbridge_dhcp_end" type="text" class="formfld unknown" size="20" value="<?=xhtmlspecialchars($pconfig['serverbridge_dhcp_end']);?>">
 							<br />
 						</td>
 					</tr>
@@ -1269,7 +1269,7 @@ if ($savemsg)
 					<tr id="local_optsv4">
 						<td width="22%" valign="top" class="vncell"><?=gettext("IPv4 Local Network/s"); ?></td>
 						<td width="78%" class="vtable">
-							<input name="local_network" type="text" class="formfld unknown" size="40" value="<?=htmlspecialchars($pconfig['local_network']);?>">
+							<input name="local_network" type="text" class="formfld unknown" size="40" value="<?=xhtmlspecialchars($pconfig['local_network']);?>">
 							<br />
 							<?=gettext("These are the IPv4 networks that will be accessible " .
 							"from the remote endpoint. Expressed as a comma-separated list of one or more CIDR ranges. " .
@@ -1282,7 +1282,7 @@ if ($savemsg)
 					<tr id="local_optsv6">
 						<td width="22%" valign="top" class="vncell"><?=gettext("IPv6 Local Network/s"); ?></td>
 						<td width="78%" class="vtable">
-							<input name="local_networkv6" type="text" class="formfld unknown" size="40" value="<?=htmlspecialchars($pconfig['local_networkv6']);?>">
+							<input name="local_networkv6" type="text" class="formfld unknown" size="40" value="<?=xhtmlspecialchars($pconfig['local_networkv6']);?>">
 							<br />
 							<?=gettext("These are the IPv6 networks that will be accessible " .
 							"from the remote endpoint. Expressed as a comma-separated list of one or more IP/PREFIX. " .
@@ -1295,7 +1295,7 @@ if ($savemsg)
 					<tr id="remote_optsv4">
 						<td width="22%" valign="top" class="vncell"><?=gettext("IPv4 Remote Network/s"); ?></td>
 						<td width="78%" class="vtable">
-							<input name="remote_network" type="text" class="formfld unknown" size="40" value="<?=htmlspecialchars($pconfig['remote_network']);?>">
+							<input name="remote_network" type="text" class="formfld unknown" size="40" value="<?=xhtmlspecialchars($pconfig['remote_network']);?>">
 							<br />
 							<?=gettext("These are the IPv4 networks that will be routed through " .
 							"the tunnel, so that a site-to-site VPN can be " .
@@ -1309,7 +1309,7 @@ if ($savemsg)
 					<tr id="remote_optsv6">
 						<td width="22%" valign="top" class="vncell"><?=gettext("IPv6 Remote Network/s"); ?></td>
 						<td width="78%" class="vtable">
-							<input name="remote_networkv6" type="text" class="formfld unknown" size="40" value="<?=htmlspecialchars($pconfig['remote_networkv6']);?>">
+							<input name="remote_networkv6" type="text" class="formfld unknown" size="40" value="<?=xhtmlspecialchars($pconfig['remote_networkv6']);?>">
 							<br />
 							<?=gettext("These are the IPv6 networks that will be routed through " .
 							"the tunnel, so that a site-to-site VPN can be " .
@@ -1323,7 +1323,7 @@ if ($savemsg)
 					<tr>
 						<td width="22%" valign="top" class="vncell"><?=gettext("Concurrent connections");?></td>
 						<td width="78%" class="vtable">
-							<input name="maxclients" type="text" class="formfld unknown" size="5" value="<?=htmlspecialchars($pconfig['maxclients']);?>"/>
+							<input name="maxclients" type="text" class="formfld unknown" size="5" value="<?=xhtmlspecialchars($pconfig['maxclients']);?>"/>
 							<br />
 							<?=gettext("Specify the maximum number of clients allowed to concurrently connect to this server"); ?>.
 						</td>
@@ -1488,7 +1488,7 @@ if ($savemsg)
 							<table border="0" cellpadding="2" cellspacing="0" id="dns_domain_data">
 								<tr>
 									<td>
-										<input name="dns_domain" type="text" class="formfld unknown" id="dns_domain" size="30" value="<?=htmlspecialchars($pconfig['dns_domain']);?>">
+										<input name="dns_domain" type="text" class="formfld unknown" id="dns_domain" size="30" value="<?=xhtmlspecialchars($pconfig['dns_domain']);?>">
 									</td>
 								</tr>
 							</table>
@@ -1516,7 +1516,7 @@ if ($savemsg)
 										<span class="vexpl">
 											<?=gettext("Server"); ?> #1:&nbsp;
 										</span>
-										<input name="dns_server1" type="text" class="formfld unknown" id="dns_server1" size="20" value="<?=htmlspecialchars($pconfig['dns_server1']);?>">
+										<input name="dns_server1" type="text" class="formfld unknown" id="dns_server1" size="20" value="<?=xhtmlspecialchars($pconfig['dns_server1']);?>">
 									</td>
 								</tr>
 								<tr>
@@ -1524,7 +1524,7 @@ if ($savemsg)
 										<span class="vexpl">
 											<?=gettext("Server"); ?> #2:&nbsp;
 										</span>
-										<input name="dns_server2" type="text" class="formfld unknown" id="dns_server2" size="20" value="<?=htmlspecialchars($pconfig['dns_server2']);?>">
+										<input name="dns_server2" type="text" class="formfld unknown" id="dns_server2" size="20" value="<?=xhtmlspecialchars($pconfig['dns_server2']);?>">
 									</td>
 								</tr>
 								<tr>
@@ -1532,7 +1532,7 @@ if ($savemsg)
 										<span class="vexpl">
 											<?=gettext("Server"); ?> #3:&nbsp;
 										</span>
-										<input name="dns_server3" type="text" class="formfld unknown" id="dns_server3" size="20" value="<?=htmlspecialchars($pconfig['dns_server3']);?>">
+										<input name="dns_server3" type="text" class="formfld unknown" id="dns_server3" size="20" value="<?=xhtmlspecialchars($pconfig['dns_server3']);?>">
 									</td>
 								</tr>
 								<tr>
@@ -1540,7 +1540,7 @@ if ($savemsg)
 										<span class="vexpl">
 											<?=gettext("Server"); ?> #4:&nbsp;
 										</span>
-										<input name="dns_server4" type="text" class="formfld unknown" id="dns_server4" size="20" value="<?=htmlspecialchars($pconfig['dns_server4']);?>">
+										<input name="dns_server4" type="text" class="formfld unknown" id="dns_server4" size="20" value="<?=xhtmlspecialchars($pconfig['dns_server4']);?>">
 									</td>
 								</tr>
 							</table>
@@ -1568,7 +1568,7 @@ if ($savemsg)
 										<span class="vexpl">
 											<?=gettext("Server"); ?> #1:&nbsp;
 										</span>
-										<input name="ntp_server1" type="text" class="formfld unknown" id="ntp_server1" size="20" value="<?=htmlspecialchars($pconfig['ntp_server1']);?>">
+										<input name="ntp_server1" type="text" class="formfld unknown" id="ntp_server1" size="20" value="<?=xhtmlspecialchars($pconfig['ntp_server1']);?>">
 									</td>
 								</tr>
 								<tr>
@@ -1576,7 +1576,7 @@ if ($savemsg)
 										<span class="vexpl">
 											<?=gettext("Server"); ?> #2:&nbsp;
 										</span>
-										<input name="ntp_server2" type="text" class="formfld unknown" id="ntp_server2" size="20" value="<?=htmlspecialchars($pconfig['ntp_server2']);?>">
+										<input name="ntp_server2" type="text" class="formfld unknown" id="ntp_server2" size="20" value="<?=xhtmlspecialchars($pconfig['ntp_server2']);?>">
 									</td>
 								</tr>
 							</table>
@@ -1630,7 +1630,7 @@ if ($savemsg)
 										<span class="vexpl">
 											<?=gettext("Scope ID"); ?>:&nbsp;
 										</span>
-										<input name="netbios_scope" type="text" class="formfld unknown" id="netbios_scope" size="30" value="<?=htmlspecialchars($pconfig['netbios_scope']);?>">
+										<input name="netbios_scope" type="text" class="formfld unknown" id="netbios_scope" size="30" value="<?=xhtmlspecialchars($pconfig['netbios_scope']);?>">
 										<br />
 										<?=gettext("A NetBIOS Scope	ID provides an extended naming " .
 										"service for	NetBIOS over TCP/IP. The NetBIOS " .
@@ -1664,7 +1664,7 @@ if ($savemsg)
 										<span class="vexpl">
 											<?=gettext("Server"); ?> #1:&nbsp;
 										</span>
-										<input name="wins_server1" type="text" class="formfld unknown" id="wins_server1" size="20" value="<?=htmlspecialchars($pconfig['wins_server1']);?>">
+										<input name="wins_server1" type="text" class="formfld unknown" id="wins_server1" size="20" value="<?=xhtmlspecialchars($pconfig['wins_server1']);?>">
 									</td>
 								</tr>
 								<tr>
@@ -1672,7 +1672,7 @@ if ($savemsg)
 										<span class="vexpl">
 											<?=gettext("Server"); ?> #2:&nbsp;
 										</span>
-										<input name="wins_server2" type="text" class="formfld unknown" id="wins_server2" size="20" value="<?=htmlspecialchars($pconfig['wins_server2']);?>">
+										<input name="wins_server2" type="text" class="formfld unknown" id="wins_server2" size="20" value="<?=xhtmlspecialchars($pconfig['wins_server2']);?>">
 									</td>
 								</tr>
 							</table>
@@ -1697,7 +1697,7 @@ if ($savemsg)
 							<table border="0" cellpadding="2" cellspacing="0" id="client_mgmt_port_data">
 								<tr>
 									<td>
-										<input name="client_mgmt_port" type="text" class="formfld unknown" id="client_mgmt_port" size="30" value="<?=htmlspecialchars($pconfig['client_mgmt_port']);?>">
+										<input name="client_mgmt_port" type="text" class="formfld unknown" id="client_mgmt_port" size="30" value="<?=xhtmlspecialchars($pconfig['client_mgmt_port']);?>">
 									</td>
 								</tr>
 							</table>
@@ -1718,7 +1718,7 @@ if ($savemsg)
 							<table border="0" cellpadding="2" cellspacing="0">
 								<tr>
 									<td>
-										<textarea rows="6" cols="78" name="custom_options" id="custom_options"><?=htmlspecialchars($pconfig['custom_options']);?></textarea><br />
+										<textarea rows="6" cols="78" name="custom_options" id="custom_options"><?=xhtmlspecialchars($pconfig['custom_options']);?></textarea><br />
 										<?=gettext("Enter any additional options you would like to add to the OpenVPN server configuration here, separated by a semicolon"); ?><br />
 										<?=gettext("EXAMPLE: push \"route 10.0.0.0 255.255.255.0\""); ?>;
 									</td>
@@ -1736,7 +1736,7 @@ if ($savemsg)
 							<input name="save" type="submit" class="formbtn" value="<?=gettext("Save"); ?>"> 
 							<input name="act" type="hidden" value="<?=$act;?>">
 							<?php if (isset($id) && $a_server[$id]): ?>
-							<input name="id" type="hidden" value="<?=htmlspecialchars($id);?>">
+							<input name="id" type="hidden" value="<?=xhtmlspecialchars($id);?>">
 							<?php endif; ?>
 						</td>
 					</tr>
@@ -1768,14 +1768,14 @@ if ($savemsg)
 						<?=$disabled;?>
 					</td>
 					<td class="listr" ondblclick="document.location='vpn_openvpn_server.php?act=edit&id=<?=$i;?>'">
-						<?=htmlspecialchars($server['protocol']);?> / <?=htmlspecialchars($server['local_port']);?>
+						<?=xhtmlspecialchars($server['protocol']);?> / <?=xhtmlspecialchars($server['local_port']);?>
 					</td>
 					<td class="listr" ondblclick="document.location='vpn_openvpn_server.php?act=edit&id=<?=$i;?>'">
-						<?=htmlspecialchars($server['tunnel_network']);?><br />
-						<?=htmlspecialchars($server['tunnel_networkv6']);?><br />
+						<?=xhtmlspecialchars($server['tunnel_network']);?><br />
+						<?=xhtmlspecialchars($server['tunnel_networkv6']);?><br />
 					</td>
 					<td class="listbg" ondblclick="document.location='vpn_openvpn_server.php?act=edit&id=<?=$i;?>'">
-						<?=htmlspecialchars($server['description']);?>
+						<?=xhtmlspecialchars($server['description']);?>
 					</td>
 					<td valign="middle" nowrap class="list">
 						<a href="vpn_openvpn_server.php?act=edit&id=<?=$i;?>">

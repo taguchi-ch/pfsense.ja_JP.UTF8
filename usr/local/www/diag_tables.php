@@ -45,6 +45,7 @@ $pgtitle = array(gettext("Diagnostics"), gettext("Tables"));
 $shortcut_section = "aliases";
 
 require_once("guiconfig.inc");
+require_once("pfsense-utils.inc");
 
 // Set default table
 $tablename = "sshlockout";
@@ -55,7 +56,7 @@ if($_REQUEST['type'])
 if($_REQUEST['delete']) {
 	if(is_ipaddr($_REQUEST['delete']) || is_subnet($_REQUEST['delete'])) {
 		exec("/sbin/pfctl -t " . escapeshellarg($_REQUEST['type']) . " -T delete " . escapeshellarg($_REQUEST['delete']), $delete);
-		echo htmlentities($_REQUEST['delete']);
+		echo xhtmlentities($_REQUEST['delete']);
 	}
 	exit;
 }
@@ -103,7 +104,7 @@ include("fbegin.inc");
 		window.location='diag_tables.php?type=' + entrytype;
 	}
 	function del_entry(entry) {
-		jQuery.ajax("diag_tables.php?type=<?php echo htmlspecialchars($tablename);?>&delete=" + entry, {
+		jQuery.ajax("diag_tables.php?type=<?php echo xhtmlspecialchars($tablename);?>&delete=" + entry, {
 		complete: function(response) {
 			if (200 == response.status) {
 				// Escape all dots to not confuse jQuery selectors
@@ -141,7 +142,7 @@ include("fbegin.inc");
 		</td>
 		<td>
 			<?php if ( ($tablename != "bogons") && ($tablename != "bogonsv6") ) { ?>
-			<a onClick='del_entry("<?=htmlspecialchars($entry)?>");'>
+			<a onClick='del_entry("<?=xhtmlspecialchars($entry)?>");'>
 				<img img src="/themes/<?=$g['theme'];?>/images/icons/icon_x.gif">
 			<?php } ?>
 			</a>
@@ -163,7 +164,7 @@ include("fbegin.inc");
 			echo "<p/>&nbsp<b>$count</b> " . gettext("entries in this table.") . "&nbsp&nbsp" . "<input name='Download' type='submit' class='formbtn' value='" . gettext("Download") . "'> " . gettext(" the latest bogon data.") . "<br />" . "$last_updated";
 		}
 		else
-			echo "<p/>" . gettext("Delete") . " <a href='diag_tables.php?deleteall=true&type=" . htmlspecialchars($tablename) . "'>" . gettext("all") . "</a> " . "<b>$count</b> " . gettext("entries in this table.");
+			echo "<p/>" . gettext("Delete") . " <a href='diag_tables.php?deleteall=true&type=" . xhtmlspecialchars($tablename) . "'>" . gettext("all") . "</a> " . "<b>$count</b> " . gettext("entries in this table.");
 ?>
 
 </table>

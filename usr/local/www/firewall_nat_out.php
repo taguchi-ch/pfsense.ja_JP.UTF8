@@ -45,6 +45,7 @@ require("guiconfig.inc");
 require_once("functions.inc");
 require_once("filter.inc");
 require_once("shaper.inc");
+require_once("pfsense-utils.inc");
 
 global $FilterIflist;
 
@@ -370,7 +371,7 @@ if (is_subsystem_dirty('natconf'))
 ?>
 					</td>
 					<td class="listlr" onclick="fr_toggle(<?=$i;?>)" id="frd<?=$i;?>" ondblclick="document.location='firewall_nat_out_edit.php?id=<?=$i;?>';">
-						<?php echo $textss . htmlspecialchars(convert_friendly_interface_to_friendly_descr($natent['interface'])) . $textse; ?>
+						<?php echo $textss . xhtmlspecialchars(convert_friendly_interface_to_friendly_descr($natent['interface'])) . $textse; ?>
 						&nbsp;
 					</td>
 					<td class="listr" onclick="fr_toggle(<?=$i;?>)" id="frd<?=$i;?>" ondblclick="document.location='firewall_nat_out_edit.php?id=<?=$i;?>';">
@@ -417,7 +418,7 @@ if (is_subsystem_dirty('natconf'))
 						if (isset($natent['nonat']))
 							echo '<I>NO NAT</I>';
 						elseif (!$natent['target'])
-							echo htmlspecialchars(convert_friendly_interface_to_friendly_descr($natent['interface'])) . " address";
+							echo xhtmlspecialchars(convert_friendly_interface_to_friendly_descr($natent['interface'])) . " address";
 						elseif ($natent['target'] == "other-subnet")
 							echo $natent['targetip'] . '/' . $natent['targetip_subnet'];
 						else
@@ -446,7 +447,7 @@ if (is_subsystem_dirty('natconf'))
 ?>
 					</td>
 					<td class="listbg" onclick="fr_toggle(<?=$i;?>)" ondblclick="document.location='firewall_nat_out_edit.php?id=<?=$i;?>';">
-						<?=htmlspecialchars($natent['descr']);?>&nbsp;
+						<?=xhtmlspecialchars($natent['descr']);?>&nbsp;
 					</td>
 					<td class="list nowrap" valign="middle">
 						<table border="0" cellspacing="0" cellpadding="1" summary="move">
@@ -550,7 +551,7 @@ if (is_subsystem_dirty('natconf'))
 							<img src="./themes/<?= $g['theme']; ?>/images/icons/icon_pass.gif" width="11" height="11" border="0" title="<?=gettext("automatic outbound nat");?>" alt="icon" />
 						</td>
 						<td class="listlr" style="background-color: #E0E0E0">
-							<?php echo htmlspecialchars(convert_friendly_interface_to_friendly_descr($natent['interface'])); ?>
+							<?php echo xhtmlspecialchars(convert_friendly_interface_to_friendly_descr($natent['interface'])); ?>
 							&nbsp;
 						</td>
 						<td class="listr" style="background-color: #E0E0E0">
@@ -590,7 +591,7 @@ if (is_subsystem_dirty('natconf'))
 							if (isset($natent['nonat']))
 								echo '<I>NO NAT</I>';
 							elseif (!$natent['target'])
-								echo htmlspecialchars(convert_friendly_interface_to_friendly_descr($natent['interface'])) . " address";
+								echo xhtmlspecialchars(convert_friendly_interface_to_friendly_descr($natent['interface'])) . " address";
 							elseif ($natent['target'] == "other-subnet")
 								echo $natent['targetip'] . '/' . $natent['targetip_subnet'];
 							else
@@ -614,7 +615,7 @@ if (is_subsystem_dirty('natconf'))
 ?>
 						</td>
 						<td class="listbg">
-							<?=htmlspecialchars($natent['descr']);?>&nbsp;
+							<?=xhtmlspecialchars($natent['descr']);?>&nbsp;
 						</td>
 						<td class="list">&nbsp;</td>
 					</tr>

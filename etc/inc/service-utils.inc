@@ -44,6 +44,7 @@ require_once("ipsec.inc");
 require_once("vpn.inc");
 require_once("vslb.inc");
 require_once("gwlb.inc");
+require_once("pfsense-utils.inc");
 
 define("RCFILEPREFIX", "/usr/local/etc/rc.d/");
 function write_rcfile($params) {
@@ -261,7 +262,7 @@ function get_services() {
 				$pconfig = array();
 				$pconfig['name'] = "captiveportal";
 				$pconfig['zone'] = $zone;
-				$pconfig['description'] = gettext("Captive Portal") . ": ".htmlspecialchars($setting['zone']);
+				$pconfig['description'] = gettext("Captive Portal") . ": ".xhtmlspecialchars($setting['zone']);
 				$services[] = $pconfig;
 			}
 		}
@@ -355,7 +356,7 @@ function get_services() {
 					$pconfig['mode'] = $mode;
 					$pconfig['id'] = $id;
 					$pconfig['vpnid'] = $setting['vpnid'];
-					$pconfig['description'] = gettext("OpenVPN") . " ".$mode.": ".htmlspecialchars($setting['description']);
+					$pconfig['description'] = gettext("OpenVPN") . " ".$mode.": ".xhtmlspecialchars($setting['description']);
 					$services[] = $pconfig;
 				}
 			}
@@ -564,7 +565,7 @@ function service_control_start($name, $extras) {
 			start_service($name);
 			break;
 	}
-	return sprintf(gettext("%s has been started."),htmlspecialchars($name));
+	return sprintf(gettext("%s has been started."),xhtmlspecialchars($name));
 }
 function service_control_stop($name, $extras) {
 	global $g;
@@ -634,7 +635,7 @@ function service_control_stop($name, $extras) {
 			stop_service($name);
 			break;
 	}
-	return sprintf(gettext("%s has been stopped."), htmlspecialchars($name));
+	return sprintf(gettext("%s has been stopped."), xhtmlspecialchars($name));
 }
 
 function service_control_restart($name, $extras) {
@@ -703,7 +704,7 @@ function service_control_restart($name, $extras) {
 			restart_service($name);
 			break;
 	}
-	return sprintf(gettext("%s has been restarted."),htmlspecialchars($name));
+	return sprintf(gettext("%s has been restarted."),xhtmlspecialchars($name));
 }
 
 ?>

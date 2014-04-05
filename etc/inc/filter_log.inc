@@ -35,6 +35,7 @@
 */
 
 require 'config.inc';
+require_once("pfsense-utils.inc");
 
 /* format filter logs */
 function conv_log_filter($logfile, $nentries, $tail = 50, $filtertext = "", $filterinterface = null) {
@@ -248,9 +249,9 @@ function get_port_with_service($port, $proto) {
 	$service = getservbyport($port, $proto);
 	$portstr = "";
 	if ($service) {
-		$portstr = sprintf('<span title="' . gettext('Service %1$s/%2$s: %3$s') . '">' . htmlspecialchars($port) . '</span>', $port, $proto, $service);
+		$portstr = sprintf('<span title="' . gettext('Service %1$s/%2$s: %3$s') . '">' . xhtmlspecialchars($port) . '</span>', $port, $proto, $service);
 	} else {
-		$portstr = htmlspecialchars($port);
+		$portstr = xhtmlspecialchars($port);
 	}
 	return ':' . $portstr;
 }

@@ -47,6 +47,7 @@ require_once("functions.inc");
 require_once("filter.inc");
 require_once("shaper.inc");
 require_once("pkg-utils.inc");
+require_once("pfsense-utils.inc");
 
 global $static_output;
 
@@ -104,11 +105,11 @@ if ($_POST) {
 				</tr>
 <?php if ((empty($_GET['mode']) && $_GET['id']) || (!empty($_GET['mode']) && (!empty($_GET['pkg']) || $_GET['mode'] == 'reinstallall') && ($_GET['mode'] != 'installedinfo' && $_GET['mode'] != 'showlog'))):
 	if (empty($_GET['mode']) && $_GET['id']) {
-		$pkgname = str_replace(array("<", ">", ";", "&", "'", '"'), "", htmlspecialchars_decode($_GET['id'], ENT_QUOTES | ENT_HTML401));
+		$pkgname = str_replace(array("<", ">", ";", "&", "'", '"'), "", xhtmlspecialchars_decode($_GET['id'], ENT_QUOTES | ENT_HTML401));
 		$pkgmode = 'installed';
 	} else if (!empty($_GET['mode']) && !empty($_GET['pkg'])) {
-		$pkgname = str_replace(array("<", ">", ";", "&", "'", '"'), "", htmlspecialchars_decode($_GET['pkg'], ENT_QUOTES | ENT_HTML401));
-		$pkgmode = str_replace(array("<", ">", ";", "&", "'", '"'), "", htmlspecialchars_decode($_GET['mode'], ENT_QUOTES | ENT_HTML401));
+		$pkgname = str_replace(array("<", ">", ";", "&", "'", '"'), "", xhtmlspecialchars_decode($_GET['pkg'], ENT_QUOTES | ENT_HTML401));
+		$pkgmode = str_replace(array("<", ">", ";", "&", "'", '"'), "", xhtmlspecialchars_decode($_GET['mode'], ENT_QUOTES | ENT_HTML401));
 	}
 	switch ($pkgmode) {
 	case 'reinstallxml':
@@ -181,7 +182,7 @@ Rounded("div#mainareapkg","bl br","#FFF","#eeeeee","smooth");
 ob_flush();
 
 if ($_GET) {
-	$pkgname = str_replace(array("<", ">", ";", "&", "'", '"'), "", htmlspecialchars_decode($_GET['pkg'], ENT_QUOTES | ENT_HTML401));
+	$pkgname = str_replace(array("<", ">", ";", "&", "'", '"'), "", xhtmlspecialchars_decode($_GET['pkg'], ENT_QUOTES | ENT_HTML401));
 	switch($_GET['mode']) {
 	case 'showlog':
 		if (strpos($pkgname, ".")) {
@@ -203,7 +204,7 @@ if ($_GET) {
 		break;
 	}
 } else if ($_POST) {
-	$pkgid = str_replace(array("<", ">", ";", "&", "'", '"'), "", htmlspecialchars_decode($_POST['id'], ENT_QUOTES | ENT_HTML401));
+	$pkgid = str_replace(array("<", ">", ";", "&", "'", '"'), "", xhtmlspecialchars_decode($_POST['id'], ENT_QUOTES | ENT_HTML401));
 
 	/* All other cases make changes, so mount rw fs */
 	conf_mount_rw();
@@ -232,7 +233,7 @@ if ($_GET) {
 				filter_configure();
 			}
 			@file_put_contents("/tmp/{$pkgid}.info", $static_output);
-			$pkgid = htmlspecialchars($pkgid);
+			$pkgid = xhtmlspecialchars($pkgid);
 			echo "<script type='text/javascript'>document.location=\"pkg_mgr_install.php?mode=installedinfo&pkg={$pkgid}\";</script>";
 			break;
 		case 'reinstallall':

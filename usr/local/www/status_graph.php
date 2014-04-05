@@ -44,6 +44,7 @@
 ##|-PRIV
 
 require("guiconfig.inc");
+require_once("pfsense-utils.inc");
 
 if ($_POST['width'])
 	$width = $_POST['width'];
@@ -63,7 +64,7 @@ foreach (array('server', 'client') as $mode) {
 	if (is_array($config['openvpn']["openvpn-{$mode}"])) {
 		foreach ($config['openvpn']["openvpn-{$mode}"] as $id => $setting) {
 			if (!isset($setting['disable'])) {
-				$ifdescrs['ovpn' . substr($mode, 0, 1) . $setting['vpnid']] = gettext("OpenVPN") . " ".$mode.": ".htmlspecialchars($setting['description']);
+				$ifdescrs['ovpn' . substr($mode, 0, 1) . $setting['vpnid']] = gettext("OpenVPN") . " ".$mode.": ".xhtmlspecialchars($setting['description']);
 			}
 		}
 	}
@@ -209,7 +210,7 @@ if (isset($config['ipsec']['enable']) || isset($config['ipsec']['client']['enabl
 foreach ($ifdescrs as $ifn => $ifd) {
 	echo "<option value=\"$ifn\"";
 	if ($ifn == $curif) echo " selected";
-	echo ">" . htmlspecialchars($ifd) . "</option>\n";
+	echo ">" . xhtmlspecialchars($ifd) . "</option>\n";
 }
 ?>
 </select>
@@ -234,7 +235,7 @@ foreach ($ifdescrs as $ifn => $ifd) {
 <p>
 <div id="niftyOutter">
     <div id="col1" style="float: left; width: 46%; padding: 5px; position: relative;">
-        <embed src="graph.php?ifnum=<?=htmlspecialchars($curif);?>&ifname=<?=rawurlencode($ifdescrs[htmlspecialchars($curif)]);?>" type="image/svg+xml" width="<?=$width;?>" height="<?=$height;?>" pluginspage="http://www.adobe.com/svg/viewer/install/auto" />
+        <embed src="graph.php?ifnum=<?=xhtmlspecialchars($curif);?>&ifname=<?=rawurlencode($ifdescrs[xhtmlspecialchars($curif)]);?>" type="image/svg+xml" width="<?=$width;?>" height="<?=$height;?>" pluginspage="http://www.adobe.com/svg/viewer/install/auto" />
     </div>
     <div id="col2" style="float: right; width: 48%; padding: 5px; position: relative;">
         <table width="100%" border="0" cellspacing="0" cellpadding="0">

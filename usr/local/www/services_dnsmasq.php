@@ -43,6 +43,7 @@ require("guiconfig.inc");
 require_once("functions.inc");
 require_once("filter.inc");
 require_once("shaper.inc");
+require_once("pfsense-utils.inc");
 
 $pconfig['enable'] = isset($config['dnsmasq']['enable']);
 $pconfig['regdhcp'] = isset($config['dnsmasq']['regdhcp']);
@@ -275,7 +276,7 @@ function show_advanced_dns() {
 						$selected = 'selected="selected"';
 			?>
 				<option value="<?=$laddr['value'];?>" <?=$selected;?>>
-					<?=htmlspecialchars($laddr['name']);?>
+					<?=xhtmlspecialchars($laddr['name']);?>
 				</option>
 			<?php endforeach; ?>
 			</select>
@@ -301,7 +302,7 @@ function show_advanced_dns() {
 			</div>
 			<div id="showadv" <?php if (empty($pconfig['custom_options'])) echo "style='display:none'"; ?>>
 				<strong><?=gettext("Advanced");?><br /></strong>
-				<textarea rows="6" cols="78" name="custom_options" id="custom_options"><?=htmlspecialchars($pconfig['custom_options']);?></textarea><br />
+				<textarea rows="6" cols="78" name="custom_options" id="custom_options"><?=xhtmlspecialchars($pconfig['custom_options']);?></textarea><br />
 				<?=gettext("Enter any additional options you would like to add to the dnsmasq configuration here, separated by a space or newline"); ?><br />
 			</div>
 			</p>
@@ -370,7 +371,7 @@ function show_advanced_dns() {
 			<?=$hostent['ip'];?>&nbsp;
 		</td>
 		<td class="listbg" ondblclick="document.location='services_dnsmasq_edit.php?id=<?=$i;?>';">
-			<?=htmlspecialchars($hostent['descr']);?>&nbsp;
+			<?=xhtmlspecialchars($hostent['descr']);?>&nbsp;
 		</td>
 		<td valign="middle" nowrap class="list">
 			<table border="0" cellspacing="0" cellpadding="1">
@@ -393,7 +394,7 @@ function show_advanced_dns() {
 			Alias for <?=$hostent['host'] ? $hostent['host'] . '.' . $hostent['domain'] : $hostent['domain'];?>&nbsp;
 		</td>
 		<td class="listbg" ondblclick="document.location='services_dnsmasq_edit.php?id=<?=$i;?>';">
-			<?=htmlspecialchars($alias['description']);?>&nbsp;
+			<?=xhtmlspecialchars($alias['description']);?>&nbsp;
 		</td>
 		<td valign="middle" nowrap class="list">
 			<a href="services_dnsmasq_edit.php?id=<?=$i;?>"><img src="./themes/<?= $g['theme']; ?>/images/icons/icon_e.gif" width="17" height="17" border="0"></a>
@@ -455,7 +456,7 @@ function show_advanced_dns() {
 			<?=$doment['ip'];?>&nbsp;
 		</td>
 		<td class="listbg">
-			<?=htmlspecialchars($doment['descr']);?>&nbsp;
+			<?=xhtmlspecialchars($doment['descr']);?>&nbsp;
 		</td>
 		<td valign="middle" nowrap class="list"> <a href="services_dnsmasq_domainoverride_edit.php?id=<?=$i;?>"><img src="./themes/<?= $g['theme']; ?>/images/icons/icon_e.gif" width="17" height="17" border="0"></a>
 			&nbsp;<a href="services_dnsmasq.php?act=del&type=doverride&id=<?=$i;?>" onclick="return confirm('<?=gettext("Do you really want to delete this domain override?");?>')"><img src="./themes/<?= $g['theme']; ?>/images/icons/icon_x.gif" width="17" height="17" border="0"></a></td>

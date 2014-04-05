@@ -46,6 +46,7 @@ require("functions.inc");
 require_once("filter.inc");
 require("shaper.inc");
 require("captiveportal.inc");
+require_once("pfsense-utils.inc");
 
 $cpzone = $_GET['zone'];
 if (isset($_POST['zone']))
@@ -98,7 +99,7 @@ include("head.inc");
 <?php include("fbegin.inc"); ?>
 <body link="#0000CC" vlink="#0000CC" alink="#0000CC">
 <form action="services_captiveportal_hostname.php" method="post">
-<input type="hidden" name="zone" id="zone" value="<?=htmlspecialchars($cpzone);?>" />
+<input type="hidden" name="zone" id="zone" value="<?=xhtmlspecialchars($cpzone);?>" />
 <?php if ($savemsg) print_info_box($savemsg); ?>
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr><td class="tabnavtbl">
@@ -147,7 +148,7 @@ include("head.inc");
 		?>	
 	  </td>
 	  <td class="listbg">
-		<?=htmlspecialchars($ip['descr']);?>&nbsp;
+		<?=xhtmlspecialchars($ip['descr']);?>&nbsp;
 	  </td>
 	  <td valign="middle" nowrap class="list"> <a href="services_captiveportal_hostname_edit.php?zone=<?=$cpzone;?>&id=<?=$i;?>"><img src="/themes/<?php echo $g['theme']; ?>/images/icons/icon_e.gif" title="<?=gettext("edit address"); ?>" width="17" height="17" border="0"></a>
 		 &nbsp;<a href="services_captiveportal_hostname.php?zone=<?=$cpzone;?>&act=del&id=<?=$i;?>" onclick="return confirm('<?=gettext("Do you really want to delete this address?"); ?>')"><img src="/themes/<?php echo $g['theme']; ?>/images/icons/icon_x.gif" title="<?=gettext("delete address"); ?>" width="17" height="17" border="0"></a></td>
