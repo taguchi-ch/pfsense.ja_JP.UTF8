@@ -52,6 +52,7 @@
 require("guiconfig.inc");
 require_once("filter.inc");
 require("shaper.inc");
+require_once("pfsense-utils.inc");
 
 if (!is_array($config['virtualip']['vip'])) {
         $config['virtualip']['vip'] = array();
@@ -369,7 +370,7 @@ function typesel_change() {
 					$interfaces['lo0'] = "Localhost";
 					foreach ($interfaces as $iface => $ifacename): ?>
 						<option value="<?=$iface;?>" <?php if ($iface == $pconfig['interface']) echo "selected=\"selected\""; ?>>
-						<?=htmlspecialchars($ifacename);?>
+						<?=xhtmlspecialchars($ifacename);?>
 						</option>
 					  <?php endforeach; ?>
 					</select>
@@ -392,7 +393,7 @@ function typesel_change() {
                       </tr>
                       <tr>
                         <td><?=gettext("Address:");?>&nbsp;&nbsp;</td>
-                        <td><input name="subnet" type="text" class="formfld unknown ipv4v6" id="subnet" size="28" value="<?=htmlspecialchars($pconfig['subnet']);?>" />
+                        <td><input name="subnet" type="text" class="formfld unknown ipv4v6" id="subnet" size="28" value="<?=xhtmlspecialchars($pconfig['subnet']);?>" />
                           /<select name="subnet_bits" class="formselect ipv4v6" id="select">
                             <?php for ($i = 128; $i >= 1; $i--): ?>
                             <option value="<?=$i;?>" <?php if ($i == $pconfig['subnet_bits']) echo "selected=\"selected\""; ?>>
@@ -412,9 +413,9 @@ function typesel_change() {
 		      /*
                         <tr>
                          <td>Range:&nbsp;&nbsp;</td>
-                          <td><input name="range_from" type="text" class="formfld unknown" id="range_from" size="28" value="<?=htmlspecialchars($pconfig['range']['from']);?>" />
+                          <td><input name="range_from" type="text" class="formfld unknown" id="range_from" size="28" value="<?=xhtmlspecialchars($pconfig['range']['from']);?>" />
 -
-                          <input name="range_to" type="text" class="formfld unknown" id="range_to" size="28" value="<?=htmlspecialchars($pconfig['range']['to']);?>" />
+                          <input name="range_to" type="text" class="formfld unknown" id="range_to" size="28" value="<?=xhtmlspecialchars($pconfig['range']['to']);?>" />
                           </td>
 			 </tr>
   		       */
@@ -424,7 +425,7 @@ function typesel_change() {
                 </tr>
 				<tr valign="top">
 				  <td width="22%" class="vncellreq"><?=gettext("Virtual IP Password");?></td>
-				  <td class="vtable"><input type='password'  name='password' value="<?=htmlspecialchars($pconfig['password']);?>" />
+				  <td class="vtable"><input type='password'  name='password' value="<?=xhtmlspecialchars($pconfig['password']);?>" />
 					<br /><?=gettext("Enter the VHID group password.");?>
 				  </td>
 				</tr>
@@ -464,7 +465,7 @@ function typesel_change() {
                 <tr>
                   <td width="22%" valign="top" class="vncell"><?=gettext("Description");?></td>
                   <td width="78%" class="vtable">
-                    <input name="descr" type="text" class="formfld unknown" id="descr" size="40" value="<?=htmlspecialchars($pconfig['descr']);?>" />
+                    <input name="descr" type="text" class="formfld unknown" id="descr" size="40" value="<?=xhtmlspecialchars($pconfig['descr']);?>" />
                     <br /> <span class="vexpl"><?=gettext("You may enter a description here for your reference (not parsed).");?></span></td>
                 </tr>
                 <tr>
@@ -472,7 +473,7 @@ function typesel_change() {
                   <td width="78%">
                     <input name="Submit" type="submit" class="formbtn" value="<?=gettext("Save"); ?>" /> <input type="button" class="formbtn" value="<?=gettext("Cancel"); ?>" onclick="history.back()" />
                     <?php if (isset($id) && $a_vip[$id]): ?>
-                    <input name="id" type="hidden" value="<?=htmlspecialchars($id);?>" />
+                    <input name="id" type="hidden" value="<?=xhtmlspecialchars($id);?>" />
                     <?php endif; ?>
                   </td>
                 </tr>

@@ -48,7 +48,7 @@
 
 require("certs.inc");
 require("guiconfig.inc");
-
+require_once("pfsense-utils.inc");
 
 // start admin user code
 $pgtitle = array(gettext("System"),gettext("User Manager"));
@@ -476,8 +476,8 @@ function sshkeyClicked(obj) {
 						<tr>
 							<td width="22%" valign="top" class="vncell"><?=gettext("Defined by");?></td>
 							<td width="78%" class="vtable">
-								<strong><?=strtoupper(htmlspecialchars($pconfig['utype']));?></strong>
-								<input name="utype" type="hidden" value="<?=htmlspecialchars($pconfig['utype'])?>" />
+								<strong><?=strtoupper(xhtmlspecialchars($pconfig['utype']));?></strong>
+								<input name="utype" type="hidden" value="<?=xhtmlspecialchars($pconfig['utype'])?>" />
 							</td>
 						</tr>
 						<tr>
@@ -489,8 +489,8 @@ function sshkeyClicked(obj) {
 						<tr>
 							<td width="22%" valign="top" class="vncellreq"><?=gettext("Username");?></td>
 							<td width="78%" class="vtable">
-								<input name="usernamefld" type="text" class="formfld user" id="usernamefld" size="20" maxlength="16" value="<?=htmlspecialchars($pconfig['usernamefld']);?>" <?=$ro;?> />
-								<input name="oldusername" type="hidden" id="oldusername" value="<?=htmlspecialchars($pconfig['usernamefld']);?>" />
+								<input name="usernamefld" type="text" class="formfld user" id="usernamefld" size="20" maxlength="16" value="<?=xhtmlspecialchars($pconfig['usernamefld']);?>" <?=$ro;?> />
+								<input name="oldusername" type="hidden" id="oldusername" value="<?=xhtmlspecialchars($pconfig['usernamefld']);?>" />
 							</td>
 						</tr>
 						<tr>
@@ -507,7 +507,7 @@ function sshkeyClicked(obj) {
 						<tr>
 							<td width="22%" valign="top" class="vncell"><?=gettext("Full name");?></td>
 							<td width="78%" class="vtable">
-								<input name="descr" type="text" class="formfld unknown" id="descr" size="20" value="<?=htmlspecialchars($pconfig['descr']);?>" <?=$ro;?> />
+								<input name="descr" type="text" class="formfld unknown" id="descr" size="20" value="<?=xhtmlspecialchars($pconfig['descr']);?>" <?=$ro;?> />
 								<br />
 								<?=gettext("User's full name, for your own information only");?>
 							</td>
@@ -515,7 +515,7 @@ function sshkeyClicked(obj) {
 						<tr>
 							<td width="22%" valign="top" class="vncell"><?=gettext("Expiration date"); ?></td>
 							<td width="78%" class="vtable">
-								<input name="expires" type="text" class="formfld unknown" id="expires" size="10" value="<?=htmlspecialchars($pconfig['expires']);?>" />
+								<input name="expires" type="text" class="formfld unknown" id="expires" size="10" value="<?=xhtmlspecialchars($pconfig['expires']);?>" />
 								<br />
 								<span class="vexpl"><?=gettext("Leave blank if the account shouldn't expire, otherwise enter the expiration date in the following format: mm/dd/yyyy"); ?></span></td>
 						</tr>
@@ -538,7 +538,7 @@ function sshkeyClicked(obj) {
 													$rowIndex++;
 ?>
 												<option value="<?=$group['name'];?>" <?=$selected;?>>
-													<?=htmlspecialchars($group['name']);?>
+													<?=xhtmlspecialchars($group['name']);?>
 												</option>
 <?php
 												endforeach;
@@ -573,7 +573,7 @@ function sshkeyClicked(obj) {
 														$rowIndex++;
 ?>
 												<option value="<?=$group['name'];?>">
-													<?=htmlspecialchars($group['name']);?>
+													<?=xhtmlspecialchars($group['name']);?>
 												</option>
 <?php
 													endforeach;
@@ -614,10 +614,10 @@ function sshkeyClicked(obj) {
 									<tr>
 										<td class="listlr"><?=$group;?></td>
 										<td class="listr">
-											<?=htmlspecialchars($priv['name']);?>
+											<?=xhtmlspecialchars($priv['name']);?>
 										</td>
 										<td class="listbg">
-											<?=htmlspecialchars($priv['descr']);?>
+											<?=xhtmlspecialchars($priv['descr']);?>
 										</td>
 										<td valign="middle" class="list nowrap">
 <?php
@@ -668,7 +668,7 @@ function sshkeyClicked(obj) {
 ?>
 									<tr>
 										<td class="listlr">
-											<?=htmlspecialchars($cert['descr']);?>
+											<?=xhtmlspecialchars($cert['descr']);?>
 <?php
 										if (is_cert_revoked($cert)):
 ?>
@@ -678,7 +678,7 @@ function sshkeyClicked(obj) {
 ?>
 										</td>
 										<td class="listr">
-											<?=htmlspecialchars($ca['descr']);?>
+											<?=xhtmlspecialchars($ca['descr']);?>
 										</td>
 										<td valign="middle" class="list nowrap">
 											<a href="system_usermanager.php?act=expckey&amp;id=<?=$id;?>&amp;certid=<?=$i;?>">
@@ -737,7 +737,7 @@ function sshkeyClicked(obj) {
 									<tr>
 										<td width="22%" valign="top" class="vncellreq"><?=gettext("Descriptive name");?></td>
 										<td width="78%" class="vtable">
-											<input name="name" type="text" class="formfld unknown" id="name" size="20" value="<?=htmlspecialchars($pconfig['name']);?>" />
+											<input name="name" type="text" class="formfld unknown" id="name" size="20" value="<?=xhtmlspecialchars($pconfig['name']);?>" />
 										</td>
 									</tr>
 									<tr>
@@ -781,7 +781,7 @@ function sshkeyClicked(obj) {
 									<tr>
 										<td width="22%" valign="top" class="vncellreq"><?=gettext("Lifetime");?></td>
 										<td width="78%" class="vtable">
-											<input name="lifetime" type="text" class="formfld unknown" id="lifetime" size="5" value="<?=htmlspecialchars($pconfig['lifetime']);?>" />days
+											<input name="lifetime" type="text" class="formfld unknown" id="lifetime" size="5" value="<?=xhtmlspecialchars($pconfig['lifetime']);?>" />days
 										</td>
 									</tr>
 								</table>
@@ -808,7 +808,7 @@ function sshkeyClicked(obj) {
 								}
 								//]]>
 								</script>
-								<textarea name="authorizedkeys" cols="65" rows="7" id="authorizedkeys" class="formfld_cert"><?=htmlspecialchars($pconfig['authorizedkeys']);?></textarea>
+								<textarea name="authorizedkeys" cols="65" rows="7" id="authorizedkeys" class="formfld_cert"><?=xhtmlspecialchars($pconfig['authorizedkeys']);?></textarea>
 								<br />
 								<?=gettext("Paste an authorized keys file here.");?>
 							</td>
@@ -816,7 +816,7 @@ function sshkeyClicked(obj) {
 						<tr id="ipsecpskrow">
 							<td width="22%" valign="top" class="vncell"><?=gettext("IPsec Pre-Shared Key");?></td>
 							<td width="78%" class="vtable">
-								<input name="ipsecpsk" type="text" class="formfld unknown" id="ipsecpsk" size="65" value="<?=htmlspecialchars($pconfig['ipsecpsk']);?>" />
+								<input name="ipsecpsk" type="text" class="formfld unknown" id="ipsecpsk" size="65" value="<?=xhtmlspecialchars($pconfig['ipsecpsk']);?>" />
 							</td>
 						</tr>
 						<tr>
@@ -824,7 +824,7 @@ function sshkeyClicked(obj) {
 							<td width="78%">
 								<input id="submit" name="save" type="submit" class="formbtn" value="<?=gettext("Save");?>" />
 								<?php if (isset($id) && $a_user[$id]): ?>
-								<input name="id" type="hidden" value="<?=htmlspecialchars($id);?>" />
+								<input name="id" type="hidden" value="<?=xhtmlspecialchars($id);?>" />
 								<?php endif;?>
 							</td>
 						</tr>
@@ -885,12 +885,12 @@ function sshkeyClicked(obj) {
 											<img src="<?=$usrimg;?>" alt="<?=gettext("User"); ?>" title="<?=gettext("User"); ?>" border="0" height="16" width="16" />
 										</td>
 										<td align="left" valign="middle">
-											<?=htmlspecialchars($userent['name']);?>
+											<?=xhtmlspecialchars($userent['name']);?>
 										</td>
 									</tr>
 								</table>
 							</td>
-							<td class="listr"><?=htmlspecialchars($userent['descr']);?>&nbsp;</td>
+							<td class="listr"><?=xhtmlspecialchars($userent['descr']);?>&nbsp;</td>
 							<td class="listr"><?php if(isset($userent['disabled'])) echo "*"; ?></td>
 							<td class="listbg">
 								<?=implode(",",local_user_get_groups($userent));?>
